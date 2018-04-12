@@ -2,8 +2,9 @@ import React from 'react';
 import { Image, Button, StyleSheet, Text, View} from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { AuthSession } from 'expo';
+API_KEYS = require('../config/configKeys.js');
 
-const FB_APP_ID = '216719122414764';
+const FB_APP_ID = API_KEYS.FB_APP_ID;
 
 class Me2 extends React.Component {
   state = {
