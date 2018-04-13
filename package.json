@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "expo": "^26.0.0",
+    "lottie-react-native": "^2.3.2",
     "mongodb": "^3.0.6",
     "mongoose": "^5.0.14",
     "react": "16.3.0-alpha.1",

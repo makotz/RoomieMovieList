@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, Button, StyleSheet, Text, View} from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { AuthSession } from 'expo';
+import api from '../config/api';
 API_KEYS = require('../config/configKeys.js');
 
 const FB_APP_ID = API_KEYS.FB_APP_ID;
@@ -16,7 +17,7 @@ class Me2 extends React.Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {!this.state.userInfo ? (
-          <Button title="Open FB Auth" onPress={this._handlePressAsync} />
+          <Button title='Login via Facebook' onPress={this._handlePressAsync} />
         ) : (
           this._renderUserInfo()
         )}
@@ -34,18 +35,13 @@ class Me2 extends React.Component {
         <Text style={{ fontSize: 20 }}>{this.state.userInfo.name}</Text>
         <Text>ID: {this.state.userInfo.id}</Text>
         <Text>Friends: {this.state.userInfo.friends}</Text>
-        <Button title="See my movies" onPress={this.getBucket(this.state.userInfo.id)} />
-      </View>
+        <Text>Favorites: {this.state.favorite}</Text>
+        </View>
     );
   };
 
-  getBucket(id) {
-    api.getBucket(id).then((res) => {
-      console.log('get bucket response is...': res);
-      this.setState({
-        favorite: res.results
-      })
-    })
+  getMovies(id) {
+    api.getBucket(id).then((res) => {console.log(res)})
   }
 
   _handlePressAsync = async () => {
@@ -68,8 +64,10 @@ class Me2 extends React.Component {
       `https://graph.facebook.com/me?access_token=${accessToken}&fields=friends,id,name,picture.type(large)`
     );
     const userInfo = await userInfoResponse.json();
-    console.log('user info is... '+userInfo);
+    const favorite = await api.getBucket(userInfo.id);
     this.setState({ userInfo });
+    // this.setState({ favorite });
+    console.log(favorite.json());
   };
 }
 

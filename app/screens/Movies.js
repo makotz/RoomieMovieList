@@ -5,17 +5,12 @@ import {
   ScrollView
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
-import { users } from '../config/data';
 import api from '../config/api';
 
 class Movies extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       movies: []
-    }
-  }
+    };
 
   componentWillMount() {
     api.getMovies().then((res) => {
@@ -30,7 +25,7 @@ class Movies extends Component {
   };
 
   render() {
-    console.log('Movies: ', this.state.movies);
+    console.log(this.props)
     return (
       <ScrollView>
         <List>

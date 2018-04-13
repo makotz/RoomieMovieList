@@ -2,19 +2,21 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { Tile, List, ListItem } from 'react-native-elements';
 import api from '../config/api';
+import Me2 from '../screens/Me2';
 
 class MovieDetail extends Component {
 
-  addToBucket(fbid, movieid) = () => {
-    api.addToBucket(fbid, movieid).then((res) => {
-      console.log(res)
-    })
-  };
+  // addToBucket(fbid, movieid) = () => {
+  //   api.addToBucket(fbid, movieid).then((res) => {
+  //     console.log(res)
+  //   })
+  // };
 
 
   render() {
-    const { popularity, overview, id } = this.props.navigation.state.params;
-    const { fbid } = this.state.userInfo.id;
+    console.log(Me2);
+    const { popularity, overview } = this.props.navigation.state.params;
+    // if(this.state.userInfo) {const { fbid } = this.state.userInfo.id};
     return (
       <ScrollView>
         <List>
@@ -24,20 +26,19 @@ class MovieDetail extends Component {
             hideChevron
           />
           <ListItem
-            title="Facebook Id"
-            rightTitle={fbid}
+            title="Movie Id"
+            rightTitle={overview}
             hideChevron
           />
-
         </List>
-        <Button
-          title="Add to Movie Bucket"
-          buttonStyle={{ marginTop: 20 }}
-          onPress={this.addToBucket(fbid, id)}
-        />
       </ScrollView>
     );
   }
 }
 
+// <Button
+// title="Add to Movie Bucket"
+// buttonStyle={{ marginTop: 20 }}
+// onPress={this.addToBucket(fbid, id)}
+// />
 export default MovieDetail;

@@ -1,18 +1,24 @@
 API_KEYS = require('../config/configKeys.js');
-const tmbdAPI = API_KEYS.tmdbKey;
-const restdbAPI = API_KEYS.restdb;
-const restdburl = 'https://'+restdbAPI+'.restdb.io/rest/movies'
+const tmdbAPI = API_KEYS.tmdbKey;
+const restdbAPI = API_KEYS.restdbKey;
+const restdburl = 'https://roomiemovielist-bd4d.restdb.io/rest/movies?apikey='+restdbAPI;
 
 const api = {
 
   getMovies(){
-    const url = 'https://api.themoviedb.org/3/movie/popular?api_key='+tmbdAPI
+    const url = 'https://api.themoviedb.org/3/movie/popular?api_key='+tmdbAPI
     return fetch(url).then((res) => res.json());
   },
 
-  getBucket(fbId){
-    const q = '?q='+"{'fbid': "+fbid+" }"
+  findMovie(tmdbid){
+    const url = 'https://api.themoviedb.org/3/movie/'+tmdbid+'?api_key='+tmdbAPI
+    return fetch(url).then((res) => res.json());
+  },
+
+  getBucket(fbid){
+    const q = '&q='+'{"fbID":'+fbid+'}'
     const url = restdburl+q
+    console.log(url)
     return fetch(url).then((res) => res.json());
   },
 
